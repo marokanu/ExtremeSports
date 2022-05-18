@@ -1,4 +1,4 @@
-package com.example.extremesports;
+package com.sport.admin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
