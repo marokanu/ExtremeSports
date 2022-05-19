@@ -1,6 +1,7 @@
 package com.sport.admin.util;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,7 @@ public class AbstractExporter {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String timestamp = dateFormatter.format(new Date());
 
-        String fileName = URLEncoder.encode(prefix + timestamp + extension, "utf-8");
+        String fileName = URLEncoder.encode(prefix + timestamp + extension, StandardCharsets.UTF_8);
 
         response.setContentType(contentType);
         response.setCharacterEncoding("UTF-8");

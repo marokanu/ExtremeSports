@@ -33,22 +33,28 @@ public class CategoryPdfExporter extends AbstractExporter {
         font.setSize(18);
         font.setColor(Color.BLUE);
 
-        Paragraph paragraph = new Paragraph("List of User", font);
+        Paragraph paragraph = new Paragraph("List of Sports Category", font);
         paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 
         document.add(paragraph);
 
-        PdfPTable table = new PdfPTable(6);
+        PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100f);
         table.setSpacingBefore(10);
-        table.setWidths(new float[] {1.2f, 3.5f, 3.0f, 3.0f, 3.0f, 1.7f});
+        table.setWidths(new float[] {1.2f, 3.5f});
 
         writeTableHeader(table);
         writeTableData(table, listCategories);
 
         document.add(table);
-
         document.close();
+    }
+
+    private void writeTableData(PdfPTable table, List<Category> listCategories) {
+        for (Category category : listCategories) {
+            table.addCell(String.valueOf(category.getId()));
+            table.addCell(category.getName());
+        }
     }
 
     private void writeTableHeader(PdfPTable table) {
@@ -67,10 +73,4 @@ public class CategoryPdfExporter extends AbstractExporter {
 
     }
 
-    private void writeTableData(PdfPTable table, List<Category> listCategories) {
-        for (Category category : listCategories) {
-            table.addCell(String.valueOf(category.getId()));
-            table.addCell(category.getName());
-        }
-    }
 }

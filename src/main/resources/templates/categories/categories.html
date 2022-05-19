@@ -11,11 +11,7 @@
         <a th:href="@{/categories/export/pdf}" style="text-decoration: none;" class="fas fa-file-pdf fa-2x icon-dark"></a>
     </div>
 
-    <div th:if="${message != null}" class="alert alert-success text-center">
-        [[${message}]]
-    </div>
-
-    <div th:replace="fragments :: search_form('/categories/page/1')"></div>
+    <div th:replace="fragments :: search_form_and_message('/categories/page/1')"></div>
 
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -23,10 +19,7 @@
             <tr>
                 <th>ID</th>
                 <th>Category Image</th>
-                <th>
-                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Category Name</a>
-                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
-                </th>
+                <th th:replace="fragments :: column_link('/categories', 'name', 'Category Name', 'none')"></th>
                 <th>Alias</th>
                 <th>Edit</th>
             </tr>
@@ -41,7 +34,9 @@
                 <td>[[${cat.name}]]</td>
                 <td>[[${cat.alias}]]</td>
                 <td>
-                    <div th:replace="fragments :: category_actions"></div>
+                    <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})"></div>
+                    &nbsp;
+                    <div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})"></div>
                 </td>
             </tr>
             </tbody>

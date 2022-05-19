@@ -143,7 +143,7 @@ public class CategoryController {
     @GetMapping("/categories/export/pdf")
     public void exportToPDF(HttpServletResponse response) throws IOException {
 
-        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
+        List<Category> listCategories = categoryService.listAll();
 
         CategoryPdfExporter exporter = new CategoryPdfExporter();
 
