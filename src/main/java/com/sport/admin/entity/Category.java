@@ -2,6 +2,8 @@ package com.sport.admin.entity;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -20,8 +22,31 @@ public class Category {
     @Column(length = 128, nullable = false)
     private String image;
 
+    @OneToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent;
+
+    @OneToMany(mappedBy = "parent")
+    private Set<Category> children = new HashSet<>();
+
     public Category() {
     }
+
+    public Category(Integer id) {
+        this.id = id;
+    }
+
+    public Category(String name) {
+        this.name = name;
+        this.alias = name;
+        this.image = "default.png";
+    }
+
+    public Category(String name, Category parent) {
+        this(name);
+        this.parent = parent;
+    }
+
 
     public Integer getId() {
         return id;
@@ -53,5 +78,21 @@ public class Category {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
+    public Set<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Category> children) {
+        this.children = children;
     }
 }
