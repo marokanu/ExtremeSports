@@ -99,6 +99,15 @@ public class CategoryService implements ICategoryService {
         return "OK";
     }
 
+    @Override
+    public void delete(Integer id) throws CategoryNotFoundException {
+        Long countById = categoryRepository.countById(id);
+        if (countById == null || countById == 0) {
+            throw new CategoryNotFoundException("Could not find any category with ID " + id);
+        }
+        categoryRepository.deleteById(id);
+    }
+
     private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm, Category parent, int subLevel) {
         int newSubLevel = subLevel + 1;
 

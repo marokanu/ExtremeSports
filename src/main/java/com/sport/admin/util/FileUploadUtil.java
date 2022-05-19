@@ -43,4 +43,14 @@ public class FileUploadUtil {
         } catch (IOException ex) {
         }
     }
+
+    public static void removeDir(String dir) {
+        cleanDir(dir);
+
+        try {
+            Files.delete(Paths.get(dir));
+        } catch (IOException e) {
+             }
+
+    }
 }
