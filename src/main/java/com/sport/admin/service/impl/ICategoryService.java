@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ICategoryService {
 
-    public List<Category> listByPage(CategoryPageInfo pageInfo,int pageNum, String sortDir);
+    public List<Category> listByPage(CategoryPageInfo pageInfo,int pageNum, String sortDir, String keyword);
 
     public List<Category> listCategoriesUsedInForm();
 
