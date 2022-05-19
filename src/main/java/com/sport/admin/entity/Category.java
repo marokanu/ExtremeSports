@@ -32,6 +32,14 @@ public class Category {
     public Category() {
     }
 
+    public Category(Integer id, String name, String alias) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.alias = alias;
+
+    }
+
     public Category(Integer id) {
         this.id = id;
     }
