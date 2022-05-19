@@ -11,6 +11,10 @@
         <a th:href="@{/categories/export/pdf}" style="text-decoration: none;" class="fas fa-file-pdf fa-2x icon-dark"></a>
     </div>
 
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
     <div>
         <form th:action="@{/categories/page/1}" class="form-inline m-3">
             Filter:&nbsp;
@@ -44,10 +48,7 @@
                 <td>[[${cat.name}]]</td>
                 <td>[[${cat.alias}]]</td>
                 <td>
-                    <div th:replace="fragments :: category_status" />
-                </td>
-                <td>
-                    <div th:replace="fragments :: category_actions" />
+                    <div th:replace="fragments :: category_actions"></div>
                 </td>
             </tr>
             </tbody>
