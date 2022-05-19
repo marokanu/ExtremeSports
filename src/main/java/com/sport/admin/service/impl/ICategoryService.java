@@ -2,12 +2,13 @@ package com.sport.admin.service.impl;
 
 import com.sport.admin.entity.Category;
 import com.sport.admin.error.CategoryNotFoundException;
+import com.sport.admin.util.CategoryPageInfo;
 
 import java.util.List;
 
 public interface ICategoryService {
 
-    public List<Category> listAll(String sortDir);
+    public List<Category> listByPage(CategoryPageInfo pageInfo,int pageNum, String sortDir);
 
     public List<Category> listCategoriesUsedInForm();
 

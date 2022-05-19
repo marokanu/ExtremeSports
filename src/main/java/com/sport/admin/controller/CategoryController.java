@@ -3,6 +3,7 @@ package com.sport.admin.controller;
 import com.sport.admin.entity.Category;
 import com.sport.admin.error.CategoryNotFoundException;
 import com.sport.admin.service.CategoryService;
+import com.sport.admin.util.CategoryPageInfo;
 import com.sport.admin.util.FileUploadUtil;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -28,15 +29,29 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public String listAll(@Param("sortDir") String sortDir,
+    public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
+        return listByPage(1, sortDir, model);
+    }
+
+    @GetMapping("/categories/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum,
+                          @Param("sortDir") String sortDir,
                           Model model) {
         if (sortDir == null || sortDir.isEmpty()) {
             sortDir = "asc";
         }
-        List<Category> listCategories = categoryService.listAll(sortDir);
+
+        CategoryPageInfo pageInfo = new CategoryPageInfo();
+
+        List<Category> listCategories = categoryService.listByPage(pageInfo, pageNum, sortDir);
 
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
+        model.addAttribute("totalPages", pageInfo.getTotalPages());
+        model.addAttribute("totalItems", pageInfo.getTotalElements());
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("sortField", "name");
+        model.addAttribute("sortDir", sortDir);
         model.addAttribute("listCategories", listCategories);
         model.addAttribute("reverseSortDir", reverseSortDir);
 
