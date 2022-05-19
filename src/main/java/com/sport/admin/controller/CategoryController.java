@@ -2,6 +2,7 @@ package com.sport.admin.controller;
 
 import com.sport.admin.entity.Category;
 import com.sport.admin.error.CategoryNotFoundException;
+import com.sport.admin.exportpdf.CategoryPdfExporter;
 import com.sport.admin.service.CategoryService;
 import com.sport.admin.util.CategoryPageInfo;
 import com.sport.admin.util.FileUploadUtil;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -136,6 +138,17 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }
         return "redirect:/categories";
+    }
+
+    @GetMapping("/categories/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws IOException {
+
+        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
+
+        CategoryPdfExporter exporter = new CategoryPdfExporter();
+
+        exporter.export(listCategories, response);
+
     }
 
 }
