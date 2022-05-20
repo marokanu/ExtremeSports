@@ -62,4 +62,11 @@ public class Activity {
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
+
+    @Transient
+    public String getLogoPath() {
+        if (this.id == null) return "/images/image-thumbnail.png";
+
+        return "/activity-logos/" + this.id + "/" + this.logo;
+    }
 }
