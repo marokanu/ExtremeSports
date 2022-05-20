@@ -41,7 +41,7 @@
                 <td>
                     <div th:replace="fragments :: edit('activity', '/activities/edit/' + ${activity.id})"></div>
                     &nbsp;
-                    <div th:replace="fragments :: delete('activity', ${activity.id}, '/brands/delete/' + ${activity.id}, true)"></div>
+                    <div th:replace="fragments :: delete('activity', ${activity.id}, '/activities/delete/' + ${activity.id}, true)"></div>
                 </td>
             </tr>
             </tbody>
