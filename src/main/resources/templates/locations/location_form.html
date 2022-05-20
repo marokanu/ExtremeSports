@@ -15,6 +15,8 @@
     <form th:action="@{/locations/save}" method="post" onsubmit="return checkUnique(this)"
           th:object="${location}">
         <input type="hidden" th:field="*{id}" />
+        <input th:if="${location.category != null}" type="hidden"
+               id="categoryId" th:value="${location.category.id}" />
         <div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -31,6 +33,8 @@
                 </div>
                 <div class="tab-pane" id="description" role="tabpanel">
                     <div th:replace="locations/location_description :: content"></div>
+        </div>
+            </div>
         </div>
         <div class="text-center">
             <input type="submit" value="Save" class="btn btn-primary m-3" />
@@ -64,8 +68,8 @@
 
 
     function getCategories() {
-        activityId = dropdownActivities.val();
-        url = activityModuleURL + "/" + activityId + "/categories";
+        let activityId = dropdownActivities.val();
+        let url = activityModuleURL + "/" + activityId + "/categories";
 
         $.get(url, function(responseJson) {
             $.each(responseJson, function(index, category) {
