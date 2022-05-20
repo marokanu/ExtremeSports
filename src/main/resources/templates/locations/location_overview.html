@@ -25,7 +25,7 @@
         <div class="col-sm-10">
             <th:block th:if="${location.category != null}">
                 <select th:field="*{category}" class="form-control" required>
-                    <th:block th:each="cat : ${location.brand.categories}">
+                    <th:block th:each="cat : ${location.activity.categories}">
                         <option th:value="${cat.id}">[[${cat.name}]]</option>
                     </th:block>
                 </select>

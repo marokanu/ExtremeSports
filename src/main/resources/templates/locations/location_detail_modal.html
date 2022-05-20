@@ -1,0 +1,72 @@
+<div class="modal-header">
+    <h4 class="modal-title">Location Details</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#overview" role="tab">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#description" role="tab">Description</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active p-3" id="overview" role="tabpanel">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Location Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${location.name}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Activity:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${location.activity.name}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Category:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${location.category.name}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Start season:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${#dates.format(location.dateIn, 'dd-MM-yyyy')}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">End season:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${#dates.format(location.dateOut, 'dd-MM-yyyy')}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Price:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${location.price}" readonly />
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane" id="description" role="tabpanel">
+            <div class="m-2">
+                <label>Full Description:</label>
+                <div th:utext="${location.Description}" class="border p-2 m-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+</div>

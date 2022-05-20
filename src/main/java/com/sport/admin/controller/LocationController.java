@@ -74,7 +74,7 @@ public class LocationController {
     }
 
     @GetMapping("/locations/edit/{id}")
-    public String editProduct(@PathVariable("id") Integer id,
+    public String editLocation(@PathVariable("id") Integer id,
                               Model model,
                               RedirectAttributes redirectAttributes) {
 
@@ -93,4 +93,23 @@ public class LocationController {
             return "redirect:/locations";
         }
     }
+
+    @GetMapping("/locations/detail/{id}")
+    public String viewLocationsDetails(@PathVariable("id") Integer id,
+                                       Model model,
+                                       RedirectAttributes redirectAttributes) {
+
+        try {
+            Location location = locationService.get(id);
+
+            model.addAttribute("location", location);
+
+            return "locations/location_detail_modal";
+        } catch (LocationNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+
+            return "redirect:/locations";
+        }
+    }
+
 }

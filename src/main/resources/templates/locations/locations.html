@@ -29,20 +29,26 @@
             <tbody>
             <tr th:each="location : ${listLocations}">
                 <td>[[${location.id}]]</td>
-                <td>[[${location.name}]]</td>
+                <td>
+                    <a class="link-detail"
+                       th:href="@{'/locations/detail/' + ${location.id}}"
+                       title="View details of this location"
+                    >[[${location.name}]]</a>
+
+                </td>
                 <td>[[${location.activity.name}]]</td>
                 <td>[[${location.category.name}]]</td>
                 <td>[[${#dates.format(location.dateIn, 'dd-MM-yyyy')}]]</td>
                 <td>[[${#dates.format(location.dateOut, 'dd-MM-yyyy')}]]</td>
                 <td>
-                    <a class="fas fa-file-alt fa-2x icon-green"
+                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
                        th:href="@{'/locations/detail/' + ${location.id}}"
                        title="View details of this location"
                     ></a>
                     &nbsp;
                     <div th:replace="fragments :: edit('location', '/locations/edit/' + ${location.id})"></div>
                     &nbsp;
-                    <div th:replace="fragments :: delete('product', ${location.id}, '/locations/delete/' + ${location.id}, true)"></div>
+                    <div th:replace="fragments :: delete('location', ${location.id}, '/locations/delete/' + ${location.id}, true)"></div>
                 </td>
             </tr>
             </tbody>
@@ -51,17 +57,31 @@
 
     <div th:replace="modal_fragments :: confirm_modal"></div>
 
+    <div class="modal fade" id="detailModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
     <div th:replace="fragments :: footer"></div>
 
 </div>
 <script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
-    moduleURL = "[[@{/brands}]]";
+
+    moduleURL = "[[@{/locations}]]";
 
     $(document).ready(function() {
         $(".link-delete").on("click", function(e) {
             e.preventDefault();
-            showDeleteConfirmModal($(this), 'brand');
+            showDeleteConfirmModal($(this), 'location');
+        });
+
+        $(".link-detail").on("click", function(e) {
+            e.preventDefault();
+            linkDetailURL = $(this).attr("href");
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
         });
     });
 </script>
