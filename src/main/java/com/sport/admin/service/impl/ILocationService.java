@@ -14,4 +14,6 @@ public interface ILocationService {
     public String checkUnique(Integer id, String name);
 
     public void delete(Integer id) throws LocationNotFoundException;
+
+    public Location get(Integer id) throws LocationNotFoundException;
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class LocationService implements ILocationService {
@@ -53,5 +54,14 @@ public class LocationService implements ILocationService {
         }
 
         locationRepository.deleteById(id);
+    }
+
+    @Override
+    public Location get(Integer id) throws LocationNotFoundException {
+        try {
+            return locationRepository.findById(id).get();
+        } catch (NoSuchElementException ex) {
+            throw new LocationNotFoundException("Could not find any product with ID " + id);
+        }
     }
 }
