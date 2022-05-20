@@ -1,6 +1,7 @@
 package com.sport.admin.service;
 
 import com.sport.admin.entity.Location;
+import com.sport.admin.error.LocationNotFoundException;
 import com.sport.admin.repository.LocationRepository;
 import com.sport.admin.service.impl.ILocationService;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,16 @@ public class LocationService implements ILocationService {
             }
         }
         return "OK";
+    }
+
+    @Override
+    public void delete(Integer id) throws LocationNotFoundException {
+        Long countById = locationRepository.countById(id);
+
+        if (countById == null || countById == 0) {
+            throw new LocationNotFoundException("Could not find any product with ID " + id);
+        }
+
+        locationRepository.deleteById(id);
     }
 }

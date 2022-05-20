@@ -6,4 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface LocationRepository extends PagingAndSortingRepository<Location, Integer> {
 
     public Location findByName(String name);
+
+    public Long countById(Integer id);
 }
