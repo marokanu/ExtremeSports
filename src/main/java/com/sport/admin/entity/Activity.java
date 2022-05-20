@@ -30,6 +30,15 @@ public class Activity {
     public Activity() {
     }
 
+    public Activity(String name) {
+        this.name = name;
+        this.logo = "activity-logo.png";
+    }
+
+    public Activity(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

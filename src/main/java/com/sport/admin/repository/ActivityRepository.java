@@ -6,4 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface ActivityRepository extends PagingAndSortingRepository<Activity, Integer> {
 
     public Long countById (Integer id);
+
+    public Activity findByName(String name);
 }

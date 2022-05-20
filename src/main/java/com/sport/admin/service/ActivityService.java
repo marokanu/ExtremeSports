@@ -47,4 +47,20 @@ public class ActivityService implements IActivityService {
         }
         activityRepository.deleteById(id);
     }
+
+    @Override
+    public String checkUnique(Integer id, String name) {
+        boolean isCreatingNew = (id == null || id == 0);
+
+        Activity activityByName = activityRepository.findByName(name);
+
+        if (isCreatingNew) {
+            if (activityByName != null) return "Duplicate";
+        } else {
+            if (activityByName != null && activityByName.getId() != id) {
+                return "Duplicate";
+            }
+        }
+        return "OK";
+    }
 }

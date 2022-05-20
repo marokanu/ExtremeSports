@@ -15,4 +15,6 @@ public interface IActivityService {
     public Activity get(Integer id) throws ActivityNotFoundException;
 
     public void delete(Integer id) throws ActivityNotFoundException;
+
+    public String checkUnique(Integer id, String name);
 }
