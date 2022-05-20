@@ -32,8 +32,8 @@
                 <td>[[${location.name}]]</td>
                 <td>[[${location.activity.name}]]</td>
                 <td>[[${location.category.name}]]</td>
-                <td>[[${location.dateIn}]]</td>
-                <td>[[${location.dateOut}]]</td>
+                <td>[[${#dates.format(location.dateIn, 'dd-MM-yyyy')}]]</td>
+                <td>[[${#dates.format(location.dateOut, 'dd-MM-yyyy')}]]</td>
                 <td>
                     <a class="fas fa-file-alt fa-2x icon-green"
                        th:href="@{'/locations/detail/' + ${location.id}}"
