@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Locations - Sports Admin')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+    <div>
+        <h2>Manage Locations</h2>
+
+        <a th:href="@{/locations/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+        <a th:href="@{/locations/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark mr-2"></a>
+    </div>
+
+    <div th:replace="fragments :: search_form_and_message('/locations/page/1')"></div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Main Image</th>
+                <th>Product Name</th>
+                <th>Activity</th>
+                <th>Category Sport</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="location : ${listLocations}">
+                <td>[[${location.id}]]</td>
+                <td>
+
+                </td>
+                <td>[[${location.name}]]</td>
+                <td>[[${location.activity.name}]]</td>
+                <td>[[${location.category.name}]]</td>
+                <td>
+                    <div th:replace="fragments :: status(${location.enabled}, 'location', '/locations/' + ${location.id})"></div>
+                </td>
+                <td>
+                    <a class="fas fa-file-alt fa-2x icon-green"
+                       th:href="@{'/locations/detail/' + ${location.id}}"
+                       title="View details of this location"
+                    ></a>
+                    &nbsp;
+                    <div th:replace="fragments :: edit('location', '/locations/edit/' + ${location.id})"></div>
+                    &nbsp;
+                    <div th:replace="fragments :: delete('product', ${location.id}, '/locations/delete/' + ${location.id}, true)"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+
+    <div th:replace="fragments :: footer"></div>
+
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/brands}]]";
+
+    $(document).ready(function() {
+        $(".link-delete").on("click", function(e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), 'brand');
+        });
+    });
+</script>
+</body>
+</html>
