@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Activites - Sports Admin')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+    <div>
+        <h2>Manage Activities</h2>
+
+        <a th:href="@{/brands/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+        <a th:href="@{/brands/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark mr-2"></a>
+
+    </div>
+
+    <div th:replace="fragments :: search_form_and_message('/activities/page/1')"></div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>Activity ID</th>
+                <th>Logo</th>
+                <th>Activity Name</th>
+                <th>Categories</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="activity : ${listActivities}">
+                <td>[[${activity.id}]]</td>
+                <td></td>
+                <td>[[${activity.name}]]</td>
+                <td>
+                    <th:block th:each="cat : ${activity.categories}">
+                        <span class="badge badge-secondary" th:text="${cat.name}"></span>
+                    </th:block>
+                </td>
+
+                <td>
+                    <div th:replace="fragments :: edit('activity', '/activities/edit/' + ${activity.id})"></div>
+                    &nbsp;
+                    <div th:replace="fragments :: delete('activity', ${activity.id}, '/brands/delete/' + ${activity.id}, true)"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+
+    <div th:replace="fragments :: footer"></div>
+
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/activities}]]";
+
+    $(document).ready(function() {
+        $(".link-delete").on("click", function(e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), 'activity');
+        });
+    });
+</script>
+</body>
+</html>
