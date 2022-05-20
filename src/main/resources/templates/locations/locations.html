@@ -35,9 +35,6 @@
                 <td>[[${location.activity.name}]]</td>
                 <td>[[${location.category.name}]]</td>
                 <td>
-                    <div th:replace="fragments :: status(${location.enabled}, 'location', '/locations/' + ${location.id})"></div>
-                </td>
-                <td>
                     <a class="fas fa-file-alt fa-2x icon-green"
                        th:href="@{'/locations/detail/' + ${location.id}}"
                        title="View details of this location"

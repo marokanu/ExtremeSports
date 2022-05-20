@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head(${pageTitle})"></head>
+<head>
+    <head th:replace="fragments :: page_head(${pageTitle})"></head>
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+    <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
@@ -22,18 +26,16 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#images" role="tab">Images</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#details" role="tab">Details</a>
-                </li>
             </ul>
 
             <div class="tab-content">
                 <div class="tab-pane active p-3" id="overview" role="tabpanel">
                     <div th:replace="locations/location_overview :: content"></div>
                 </div>
-                <div class="tab-pane" id="description" role="tabpanel">Description</div>
+                <div class="tab-pane" id="description" role="tabpanel">
+                    <div th:replace="locations/location_description :: content"></div>
+                </div>
                 <div class="tab-pane" id="images" role="tabpanel">Images</div>
-                <div class="tab-pane" id="details" role="tabpanel">Details</div>
             </div>
         </div>
         <div class="text-center">
@@ -55,6 +57,9 @@
     dropdownCategories = $("#category");
 
     $(document).ready(function() {
+
+        $("#Description").richText();
+
         dropdownActivities.change(function() {
             dropdownCategories.empty();
             getCategories();
