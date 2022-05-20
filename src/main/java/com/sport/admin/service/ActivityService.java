@@ -4,6 +4,10 @@ import com.sport.admin.entity.Activity;
 import com.sport.admin.error.ActivityNotFoundException;
 import com.sport.admin.repository.ActivityRepository;
 import com.sport.admin.service.impl.IActivityService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +15,8 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ActivityService implements IActivityService {
+
+    public static final int ACTIVITIES_PER_PAGE = 5;
 
     private final ActivityRepository activityRepository;
 
@@ -62,5 +68,19 @@ public class ActivityService implements IActivityService {
             }
         }
         return "OK";
+    }
+
+    @Override
+    public Page<Activity> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNum-1, ACTIVITIES_PER_PAGE, sort);
+
+        if (keyword != null) {
+            return activityRepository.findAll(keyword, pageable);
+        }
+        return activityRepository.findAll(pageable);
     }
 }

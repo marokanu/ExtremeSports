@@ -20,7 +20,7 @@
             <tr>
                 <th>Activity ID</th>
                 <th>Logo</th>
-                <th>Activity Name</th>
+                <th th:replace="fragments :: column_link('/activities', 'name', 'Activity Name', 'none')"></th>
                 <th>Categories</th>
                 <th></th>
             </tr>
@@ -47,6 +47,8 @@
             </tbody>
         </table>
     </div>
+
+    <div th:replace="fragments :: pagination('/activities', 'activities')"></div>
 
     <div th:replace="modal_fragments :: confirm_modal"></div>
 
