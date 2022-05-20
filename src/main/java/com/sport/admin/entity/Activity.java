@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "sports")
-public class Sport {
+@Table(name = "activities")
+public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +21,13 @@ public class Sport {
 
     @ManyToMany
     @JoinTable(
-               name = "sports_categories",
-               joinColumns = @JoinColumn(name = "sport_id"),
+               name = "activities_categories",
+               joinColumns = @JoinColumn(name = "activity_id"),
                inverseJoinColumns = @JoinColumn(name = "category_id")
                )
     private Set<Category> categories = new HashSet<>();
 
-    public Sport() {
+    public Activity() {
     }
 
 
