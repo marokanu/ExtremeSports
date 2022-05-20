@@ -1,10 +1,18 @@
 package com.sport.admin.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "locations")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Location {
 
     @Id
@@ -14,17 +22,14 @@ public class Location {
     @Column(unique = true, length = 256, nullable = false)
     private String name;
 
-    @Column(unique = true, length = 256, nullable = false)
-    private String alias;
-
     @Column(length = 4096, nullable = false)
     private String Description;
 
-    @Column(name = "created_time")
-    private Date createdTime;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date dateIn;
 
-    @Column(name = "updated_time")
-    private Date updatedTime;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    private Date dateOut;
 
     private float price;
 
@@ -36,77 +41,4 @@ public class Location {
     @JoinColumn(name = "activity_id")
     private Activity activity;
 
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
 }

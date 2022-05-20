@@ -9,4 +9,6 @@ public interface ILocationService {
     public List<Location> listAll();
 
     public Location save(Location location);
+
+    public String checkUnique(Integer id, String name);
 }

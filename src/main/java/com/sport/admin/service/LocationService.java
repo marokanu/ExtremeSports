@@ -24,11 +24,22 @@ public class LocationService implements ILocationService {
 
     @Override
     public Location save(Location location) {
-        if (location.getId() == null) {
-            location.setCreatedTime(new Date());
-        }
-        location.setUpdatedTime(new Date());
-
         return locationRepository.save(location);
+    }
+
+    @Override
+    public String checkUnique(Integer id, String name) {
+
+        boolean isCreatingNew = (id == null || id == 0);
+        Location locationByName = locationRepository.findByName(name);
+
+        if (isCreatingNew) {
+            if (locationByName != null) return "Duplicate";
+        } else {
+            if (locationByName != null && locationByName.getId() != id) {
+                return "Duplicate";
+            }
+        }
+        return "OK";
     }
 }
