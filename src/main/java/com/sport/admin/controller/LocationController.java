@@ -72,4 +72,25 @@ public class LocationController {
         }
         return "redirect:/locations";
     }
+
+    @GetMapping("/locations/edit/{id}")
+    public String editProduct(@PathVariable("id") Integer id,
+                              Model model,
+                              RedirectAttributes redirectAttributes) {
+
+        try {
+            Location location = locationService.get(id);
+            List<Activity> listActivities = activityService.listAll();
+
+            model.addAttribute("location", location);
+            model.addAttribute("listActivities", listActivities);
+            model.addAttribute("pageTitle", "Edit Location (ID: " + id + ")");
+
+            return "locations/location_form";
+        } catch (LocationNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+
+            return "redirect:/locations";
+        }
+    }
 }
