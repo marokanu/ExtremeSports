@@ -17,10 +17,10 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>Location Name</th>
-                <th>Activity</th>
-                <th>Category Sport</th>
+                <th th:replace="fragments :: column_link('/locations', 'id', 'ID', 'none')"></th>
+                <th th:replace="fragments :: column_link('/locations', 'name', 'Location Name', 'none')"></th>
+                <th th:replace="fragments :: column_link('/locations', 'activity', 'Activity', 'none')"></th>
+                <th th:replace="fragments :: column_link('/locations', 'category', 'Category', 'none')"></th>
                 <th>Start Season</th>
                 <th>End Season</th>
                 <th>Edit</th>
@@ -32,7 +32,7 @@
                 <td>
                     <a class="link-detail"
                        th:href="@{'/locations/detail/' + ${location.id}}"
-                       title="View details of this location"
+                       th:title="${location.name}"
                     >[[${location.name}]]</a>
 
                 </td>
@@ -63,6 +63,8 @@
             </div>
         </div>
     </div>
+
+    <div th:replace="fragments :: pagination('/locations', 'locations')"></div>
 
     <div th:replace="fragments :: footer"></div>
 

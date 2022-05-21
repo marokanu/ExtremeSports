@@ -25,10 +25,10 @@ public class Location {
     @Column(length = 4096, nullable = false)
     private String Description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Date dateIn;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Date dateOut;
 
     private float price;

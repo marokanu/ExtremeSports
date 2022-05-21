@@ -4,6 +4,10 @@ import com.sport.admin.entity.Location;
 import com.sport.admin.error.LocationNotFoundException;
 import com.sport.admin.repository.LocationRepository;
 import com.sport.admin.service.impl.ILocationService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,6 +16,8 @@ import java.util.NoSuchElementException;
 
 @Service
 public class LocationService implements ILocationService {
+
+    public static final int LOCATIONS_PER_PAGE = 3;
 
     private final LocationRepository locationRepository;
 
@@ -63,5 +69,19 @@ public class LocationService implements ILocationService {
         } catch (NoSuchElementException ex) {
             throw new LocationNotFoundException("Could not find any product with ID " + id);
         }
+    }
+
+    @Override
+    public Page<Location> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNum-1, LOCATIONS_PER_PAGE, sort);
+
+        if (keyword != null) {
+            return locationRepository.findAll(keyword,pageable);
+        }
+        return locationRepository.findAll(pageable);
     }
 }
