@@ -1,9 +1,11 @@
 package com.sport.admin.controller;
 
 import com.sport.admin.entity.Activity;
+import com.sport.admin.entity.Category;
 import com.sport.admin.entity.Location;
 import com.sport.admin.error.LocationNotFoundException;
 import com.sport.admin.service.ActivityService;
+import com.sport.admin.service.CategoryService;
 import com.sport.admin.service.LocationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -21,16 +23,18 @@ public class LocationController {
 
     private final LocationService locationService;
     private final ActivityService activityService;
+    private final CategoryService categoryService;
 
-    public LocationController(LocationService locationService, ActivityService activityService) {
+    public LocationController(LocationService locationService, ActivityService activityService, CategoryService categoryService) {
         this.locationService = locationService;
         this.activityService = activityService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/locations")
     public String listFirstPage(Model model) {
 
-        return listByPage(1, model, "name", "asc", null);
+        return listByPage(1, model, "name", "asc", null, 0);
     }
 
     @GetMapping("/locations/page/{pageNum}")
@@ -38,11 +42,13 @@ public class LocationController {
                              Model model,
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,
-                             @Param("keyword") String keyword) {
+                             @Param("keyword") String keyword,
+                             @Param("categoryId") Integer categoryId) {
 
-        Page<Location> page = locationService.listByPage(pageNum, sortField, sortDir, keyword);
+        Page<Location> page = locationService.listByPage(pageNum, sortField, sortDir, keyword, categoryId);
 
         List<Location> listLocations = page.getContent();
+        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 
         long startCount = (pageNum - 1) * LocationService.LOCATIONS_PER_PAGE + 1;
         long endCount = startCount + LocationService.LOCATIONS_PER_PAGE - 1;
@@ -50,6 +56,8 @@ public class LocationController {
             endCount = page.getTotalElements();
         }
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+        if (categoryId != null) model.addAttribute("categoryId", categoryId);
 
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
@@ -61,6 +69,7 @@ public class LocationController {
         model.addAttribute("reverseSortDir", reverseSortDir);
         model.addAttribute("keyword", keyword);
         model.addAttribute("listLocations", listLocations);
+        model.addAttribute("listCategories", listCategories);
 
         return "locations/locations";
     }

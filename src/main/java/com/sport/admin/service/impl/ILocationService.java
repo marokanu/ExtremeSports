@@ -18,5 +18,5 @@ public interface ILocationService {
 
     public Location get(Integer id) throws LocationNotFoundException;
 
-    public Page<Location> listByPage(int pageNum, String sortField, String sortDir, String keyword);
+    public Page<Location> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer categoryId);
 }
