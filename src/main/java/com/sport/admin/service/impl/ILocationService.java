@@ -4,6 +4,7 @@ import com.sport.admin.entity.Location;
 import com.sport.admin.error.LocationNotFoundException;
 import org.springframework.data.domain.Page;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface ILocationService {
@@ -19,4 +20,6 @@ public interface ILocationService {
     public Location get(Integer id) throws LocationNotFoundException;
 
     public Page<Location> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer categoryId);
+
+
 }

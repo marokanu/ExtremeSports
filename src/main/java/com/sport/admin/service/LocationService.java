@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -95,4 +95,5 @@ public class LocationService implements ILocationService {
         }
         return locationRepository.findAll(pageable);
         }
-    }
+
+}

@@ -67,8 +67,8 @@
                 </td>
                 <td>[[${location.activity.name}]]</td>
                 <td>[[${location.category.name}]]</td>
-                <td>[[${#dates.format(location.dateIn, 'dd-MM-yyyy')}]]</td>
-                <td>[[${#dates.format(location.dateOut, 'dd-MM-yyyy')}]]</td>
+                <td>[[${#dates.format(location.startAt, 'dd-MM-yyyy')}]]</td>
+                <td>[[${#dates.format(location.endAt, 'dd-MM-yyyy')}]]</td>
                 <td>
                     <a class="fas fa-file-alt fa-2x icon-green link-detail"
                        th:href="@{'/locations/detail/' + ${location.id}}"

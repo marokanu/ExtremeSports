@@ -1,18 +1,18 @@
 package com.sport.admin.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "locations")
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Location {
 
     @Id
@@ -25,11 +25,9 @@ public class Location {
     @Column(length = 4096, nullable = false)
     private String Description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateIn;
+    private Date startAt;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOut;
+    private Date endAt;
 
     private float price;
 

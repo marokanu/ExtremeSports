@@ -5,11 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
+@Repository
 public interface LocationRepository extends PagingAndSortingRepository<Location, Integer> {
 
     public Location findByName(String name);
@@ -36,5 +38,5 @@ public interface LocationRepository extends PagingAndSortingRepository<Location,
     public Page<Location> searchInCategory(Integer categoryId, String categoryIdMatch,
                                           String keyword, Pageable pageable);
 
-    List<Location> findByDateInBetween(Date dateIn, Date dateOut);
+    public List<Location> findByStartAtAndEndAtBetween(Date startAt, Date endAt);
 }
