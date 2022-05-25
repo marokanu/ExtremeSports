@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments :: page_head('Locations - Sports Admin')"></head>
 <body>
 <div class="container-fluid">
@@ -35,6 +35,7 @@
             <button type="button" class="btn btn-secondary" onclick="clearFilter()">
                 <i class="fas fa-eraser"></i>
             </button>
+
         </form>
 
         <div th:if="${message != null}" class="alert alert-success text-center">
@@ -50,8 +51,8 @@
                 <th th:replace="fragments :: column_link('/locations', 'name', 'Location Name', 'none')"></th>
                 <th th:replace="fragments :: column_link('/locations', 'activity', 'Activity', 'none')"></th>
                 <th th:replace="fragments :: column_link('/locations', 'category', 'Category', 'none')"></th>
-                <th>Start Season</th>
-                <th>End Season</th>
+                <th th:replace="fragments :: column_link('/locations', 'startAt', 'Start Season', 'none')"></th>
+                <th th:replace="fragments :: column_link('/locations', 'endAt', 'End Season', 'none')"></th>
                 <th>Edit</th>
             </tr>
             </thead>

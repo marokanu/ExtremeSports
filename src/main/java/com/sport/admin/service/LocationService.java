@@ -72,21 +72,28 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public Page<Location> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer categoryId) {
-        Sort sort = Sort.by(sortField);
+    public Page<Location> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer categoryId,
+                                     Date DateIn, Date DateOut) {
 
+        Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNum-1, LOCATIONS_PER_PAGE, sort);
 
         if (keyword != null && !keyword.isEmpty()) {
             if (categoryId != null && categoryId > 0) {
+
                 String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
 
                 return locationRepository.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
             }
             return locationRepository.findAll(keyword, pageable);
         }
+
+        if (DateIn != null && DateOut != null) {
+            return  locationRepository.findByDateInAndDateOut(DateIn, DateOut, pageable);
+        }
+
         if (categoryId != null && categoryId > 0) {
 
             String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
@@ -94,6 +101,6 @@ public class LocationService implements ILocationService {
             return locationRepository.findAllInCategory(categoryId, categoryIdMatch, pageable);
         }
         return locationRepository.findAll(pageable);
-        }
+    }
 
 }

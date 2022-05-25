@@ -35,7 +35,7 @@ public class LocationController {
     @GetMapping("/locations")
     public String listFirstPage(Model model) {
 
-        return listByPage(1, model, "name", "asc", null, 0);
+        return listByPage(1, model, "name", "asc", null, 0, null, null);
     }
 
     @GetMapping("/locations/page/{pageNum}")
@@ -44,9 +44,11 @@ public class LocationController {
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,
                              @Param("keyword") String keyword,
-                             @Param("categoryId") Integer categoryId) {
+                             @Param("categoryId") Integer categoryId,
+                             @Param("DateIn") Date DateIn,
+                             @Param("DateOut") Date DateOut) {
 
-        Page<Location> page = locationService.listByPage(pageNum, sortField, sortDir, keyword, categoryId);
+        Page<Location> page = locationService.listByPage(pageNum, sortField, sortDir, keyword, categoryId, DateIn, DateOut);
 
         List<Location> listLocations = page.getContent();
         List<Category> listCategories = categoryService.listCategoriesUsedInForm();

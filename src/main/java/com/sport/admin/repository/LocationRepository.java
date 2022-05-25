@@ -8,8 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
 @Repository
 public interface LocationRepository extends PagingAndSortingRepository<Location, Integer> {
@@ -30,13 +29,16 @@ public interface LocationRepository extends PagingAndSortingRepository<Location,
                                            Pageable pageable);
 
     @Query("SELECT p FROM Location p WHERE (p.category.id = ?1 "
-            + "OR p.category.allParentIDs LIKE %?2%) AND "
-            + "(p.name LIKE %?3% "
+            + "OR p.category.allParentIDs LIKE %?2%)"
+            + "AND (p.name LIKE %?3% "
             + "OR p.Description LIKE %?3% "
             + "OR p.activity.name LIKE %?3% "
             + "OR p.category.name LIKE %?3%)")
     public Page<Location> searchInCategory(Integer categoryId, String categoryIdMatch,
                                           String keyword, Pageable pageable);
 
-    public List<Location> findByStartAtAndEndAtBetween(Date startAt, Date endAt);
+    @Query("SELECT l FROM Location l WHERE l.startAt BETWEEN  ?1 AND ?2"
+            + " AND l.endAt BETWEEN ?1 AND ?2")
+    Page<Location> findByDateInAndDateOut(Date DateIn, Date DateOut, Pageable pageable);
+
 }
